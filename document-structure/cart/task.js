@@ -39,11 +39,15 @@ productAddBtn.forEach((elem, index) => { //для каждой "кнопки" Д
         cartProductCount.setAttribute('class', 'cart__product-count'); //добавляем созданному div'у класс
         cartProductCount.textContent = productValue[index].textContent; //значение счетчика берем по индексу элемента из массива всех значений счетчика
 
-        cartProduct.appendChild(cartProductImage); //добавляем изображение в карточку товара в корзине
-        cartProduct.appendChild(cartProductCount); //добавляем счетчик в карточку товара в корзине
-        cart.appendChild(cartProduct); //добавляем карточку товара в корзину
-
-        let cartArray = cart.querySelector('[data-id="${cartProductId}"]');
-        console.log(cartProductId);
+        let cartArray = cart.querySelector(`[data-id="${cartProductId}"]`);
+        
+        if (cartArray) {
+            let cartProductCountRes = Array.from(document.querySelectorAll('.cart__product-count'));
+            cartProductCountRes[index].textContent = Number(cartProductCountRes[index].textContent) + Number(productValue[index].textContent);
+        } else {
+            cartProduct.appendChild(cartProductImage); //добавляем изображение в карточку товара в корзине
+            cartProduct.appendChild(cartProductCount); //добавляем счетчик в карточку товара в корзине
+            cart.appendChild(cartProduct); //добавляем карточку товара в корзину
+        }
     })
 })
