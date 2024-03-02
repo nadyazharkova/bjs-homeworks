@@ -13,10 +13,12 @@ body {
 .cart__product-count {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
+  width: 14%;
   border: 2px solid green;
   border-radius: 50%;
   padding: 2px 5px;
+  text-align: center;
 }
 
 .cart__product-image {
