@@ -5,39 +5,33 @@ const tasksList = document.getElementById('tasks__list');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (taskInput.value) {
-        AddElement();
-        DeleteElement();
+    if (taskInput.value.trim() !== '') {
+        addTask();
+        deleteTask();
+    } else {
+        taskInput.value = '';
     }
 })
 
-function AddElement() {
-    let taskInputText = taskInput.value;
-
-    let task = document.createElement('div');
-    task.setAttribute('class', 'task');
-
-    let taskTitle = document.createElement('div');
-    taskTitle.setAttribute('class', 'task__title')
-    taskTitle.innerHTML = taskInputText;
-
-    let taskRemove = document.createElement('a');
-    taskRemove.setAttribute('class', 'task__remove');
-    taskRemove.innerHTML = '&times;';
-
-    task.appendChild(taskTitle);
-    tasksList.appendChild(task);
-    task.appendChild(taskRemove);
+function addTask() {
+    tasksList.insertAdjacentHTML('afterbegin', `
+        <div class="task">
+            <div class="task__title">
+                ${taskInput.value}
+            </div>
+            <a href="#" class="task__remove">&times;</a>
+        </div>
+    `);
 
     taskInput.value = '';
 }
 
-function DeleteElement() {
+function deleteTask() {
     let taskRemove = Array.from(document.querySelectorAll('.task__remove'));
     
-    taskRemove.forEach((element) => {
+    for(let element of taskRemove) {
         element.addEventListener('click', () => {
             element.parentElement.remove();
         })
-    })
+    }
 }
