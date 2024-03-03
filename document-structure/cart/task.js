@@ -26,14 +26,25 @@ productControlInc.forEach((elem, index) => { //для каждого плюса 
 //добавляем товар в корзину
 productAddBtn.forEach((elem, index) => { //для каждой "кнопки" Добавить в корзину
     elem.addEventListener('click', () => { //при клике на кнопку
-        let cartProduct = document.querySelector()
-        let productInCart = cartProducts.find();//что внутри find писать?
-        cartProducts.insertAdjacentHTML('beforeend', `
-            <div class="cart__product" data-id="${product[index].dataset.id}">
-                <img class="cart__product-image" src="${productImage[index].src}">
-                <div class="cart__product-count"> ${productValue[index].textContent}</div>
-            </div
-        `)
+
+        let cartProductsAll = Array.from(document.querySelectorAll('.cart__product'));
+        let productInCart = cartProductsAll.find(function() {
+            return cartProducts.querySelector(`[data-id="${product[index].dataset.id}"]`);
+        });
+
+        if (productInCart) {
+            let cartProductCount = Array.from(document.querySelectorAll('.cart__product-count'));
+            for (let elem of cartProductCount) {
+                elem.textContent = Number(elem.textContent) + Number(productValue[index].textContent)
+            }
+        } else {
+            cartProducts.insertAdjacentHTML('beforeend', `
+                <div class="cart__product" data-id="${product[index].dataset.id}">
+                    <img class="cart__product-image" src="${productImage[index].src}">
+                    <div class="cart__product-count"> ${productValue[index].textContent}</div>
+                </div
+            `)
+        }
     })
 })
 
