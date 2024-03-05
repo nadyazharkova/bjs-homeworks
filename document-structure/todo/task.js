@@ -8,9 +8,9 @@ form.addEventListener('submit', (e) => {
     if (taskInput.value.trim() !== '') {
         addTask();
         deleteTask();
-    } else {
-        taskInput.value = '';
     }
+    
+    taskInput.value = '';
 })
 
 function addTask() {
@@ -29,9 +29,7 @@ function addTask() {
 function deleteTask() {
     let taskRemove = Array.from(document.querySelectorAll('.task__remove'));
     
-    for(let element of taskRemove) {
-        element.addEventListener('click', () => {
-            element.parentElement.remove();
-        })
-    }
+    taskRemove[0].addEventListener('click', () => {
+        taskRemove[0].parentElement.remove();
+    })
 }
